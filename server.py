@@ -5,7 +5,8 @@ import serial
 import time
 from hx711_weight import HX711
 
-hxs = [HX711(5, 6), HX711(17, 27), HX711(18, 19), HX711(22, 25)]
+# hxs = [HX711(5, 6), HX711(17, 27), HX711(18, 19), HX711(22, 25)]
+hxs = [HX711(5, 6)]
 hx_val = [0, 0, 0, 0, 0, 0, 0, 0]
 
 def hx_init_start():
@@ -52,9 +53,9 @@ def rs485_sender(ser, hxs):
         while True:
             for i in range(len(hxs)):
                 val = int(round(get_hx_data(hxs[i]), 1) * 10)
-                print(f"Sensor {i}: {val/10} kg")
+                print(f"Sensor {i}: {val} kg")
                 ser.write(val.to_bytes(2, byteorder='big')) 
-                time.sleep(1)
+                time.sleep(2)
     except Exception as e:
         print(f"Error in rs485_sender: {e}")
 
@@ -63,7 +64,7 @@ def main():
     Для инициализации последовательного порта используются стандартные настройки UART
     """
     ser = serial.Serial(
-        port='/dev/ttyAMA0',
+        port='/dev/ttyS0',
         baudrate=9600,
         parity=serial.PARITY_NONE,
         stopbits=serial.STOPBITS_ONE,
