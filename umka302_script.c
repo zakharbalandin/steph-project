@@ -1,5 +1,3 @@
-// Syntax: MyLogic
-
 #include tracker
 #include <time>
 #include serial
@@ -20,11 +18,7 @@ main() {
         printf("Data: ");
         printf("%d\0", value);
       }
-      
       delay(1000);
-      for (new i = 0; i < size; i++) {
-        buff[i] = 0;
-      }
       rsclose();
     }
     delay(1000);
